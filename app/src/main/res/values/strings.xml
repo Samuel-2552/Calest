@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calest</string>
+    <string name="calest">Calest</string>
+    <string name="select_your_image">Select your Image</string>
+    <string name="select_image">Select Image</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="predict_image">Predict Image</string>
+    <string name="result">Result:</string>
+</resources>
