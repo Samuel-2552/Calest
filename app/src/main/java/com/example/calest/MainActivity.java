@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -91,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Runs model inference and gets result.
                 MobilenetV110224Quant.Outputs outputs = model.process(inputFeature0);
+                Log.i("MainActivity","hello");
+                System.out.println(outputs);
 
                 TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
