@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         selectBtn = findViewById(R.id.selectBtn);
         predictBtn = findViewById(R.id.predictBtn);
-        captureBtn = findViewById(R.id.captureBtn);
         result = findViewById(R.id.result);
         imageView = findViewById(R.id.imageView);
 
@@ -70,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
             intent.setAction(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, 10);
-        });
-
-        captureBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, 12);
         });
 
         predictBtn.setOnClickListener(view -> {
