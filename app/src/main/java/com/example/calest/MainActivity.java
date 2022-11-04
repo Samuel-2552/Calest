@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.calest.ml.FruitsModel;
 import com.example.calest.ml.MobilenetV110224Quant;
 
 import org.tensorflow.lite.DataType;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         //camera permission
         getPermission();
 
-        String[] labels= new String[1001];
+        String[] labels= new String[36];
         int cnt=0;
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getAssets().open("labels.txt")));
@@ -80,6 +81,30 @@ public class MainActivity extends AppCompatActivity {
         predictBtn.setOnClickListener(view -> {
 
             try {
+                FruitsModel model = FruitsModel.newInstance(MainActivity.this);
+
+                // Creates inputs for reference.
+                TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+
+                bitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true);
+
+                inputFeature0.loadBuffer(TensorImage.fromBitmap(bitmap).getBuffer());
+
+                // Runs model inference and gets result.
+                FruitsModel.Outputs outputs = model.process(inputFeature0);
+
+                TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                result.setText(labels[getMax(outputFeature0.getFloatArray())]+"");
+
+                // Releases model resources if no longer used.
+                model.close();
+            } catch (IOException e) {
+                // TODO Handle the exception
+            }
+
+
+            /*try {
                 MobilenetV110224Quant model = MobilenetV110224Quant.newInstance(MainActivity.this);
 
                 // Creates inputs for reference.
@@ -100,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 model.close();
             } catch (IOException e) {
                 // TODO Handle the exception
-            }
+            }*/
 
         });
 
